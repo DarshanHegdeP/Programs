@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Information form </h2>
+        <form action="/submit-get" method="get" >
+            <h3>Using Get method</h3>
+            <label for="name-get">Name</label>
+            <input type="text" id="name-get" name="name" required>
+
+             <label for="branch-get">Branch</label>
+            <input type="text" id="branch-get" name="branch" required>
+
+             <label for="semester-get">Semester</label>
+            <input type="text" id="semester-get" name="semester" required>
+
+            <button type="submit">Submit(GET)</button>
+        </form>
+
+          <form action="/submit-post" method="post" >
+            <h3>Using Get method</h3>
+            <label for="name-post">Name</label>
+            <input type="text" id="name-post" name="name" required>
+
+             <label for="branch-post">Branch</label>
+            <input type="text" id="branch-post" name="branch" required>
+
+             <label for="semester-post">Semester</label>
+            <input type="text" id="semester-post" name="semester" required>
+
+            <button type="submit">Submit(Post)</button>
+        </form>
+    </div>
+</body>
+</html>
