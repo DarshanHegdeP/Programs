@@ -1,0 +1,75 @@
+const express = require("express")
+const app = express();
+const port = 3000
+
+app.use(express.json())
+
+let books = [
+    {
+        id: 1, title: "Film1", author: "j.r.r", price: 34.00, quantity: 10
+    },
+    {
+        id: 2, title: "Film1", author: "j.r.r", price: 34.00, quantity: 10
+    }, {
+        id: 3, title: "Film1", author: "j.r.r", price: 34.00, quantity: 10
+    }, {
+        id: 4, title: "Film1", author: "j.r.r", price: 34.00, quantity: 10
+    },
+]
+
+app.get("/books",(req,res)=>{
+    res.status(200).json(books);
+})
+
+app.get("/books/:id",(req,res)=>{
+    const book=books.find(b=>b.id===parseInt(req.params.id))
+    console.log(typeof(req.params.id)," ",book);
+    if(book){
+        res.status(200).json(book);
+
+    }else{
+        res.status(404).send("book not found")
+    }
+})
+
+app.post("/books",(req,res)=>{
+    const newbook={
+        id:books.length+1,
+        title:req.body.title,
+        author:req.body.author,
+        price:req.body.price,
+        quantity:req.body.quantity
+    }
+    books.push(newbook)
+    res.status(201).json(newbook)
+})
+
+app.patch('/books/:id',(req,res,err)=>{
+    // res.send("In the patch method");
+    const book=books.find(b=>b.id===parseInt(req.params.id));
+    if(!book) return res.status(404).send("Book not found")
+        res.status(200).json(book);
+})
+
+app.put("/books/:id",(req,res,err)=>{
+      const book=books.find(b=>b.id===parseInt(req.params.id));
+    if(!book) return res.status(404).send("Book not found")
+        book.title=req.body.title;
+        book.author=req.body.author;
+        book.price  =req.body.price;
+        book.quantity=req.body.quantity;
+        res.status(200).json(book);
+
+})
+app.delete("/books/:id",(req,res)=>{
+    const initialLength=books.length;
+    books=books.filter(book=>book.id!==parseInt(req.params.id));
+    if(books.length===initialLength){
+        return res.status(404).json({message:"book not deleted successfully"})
+    }
+        return res.status(200).json({message:"book deleted successfully"})
+    })
+
+    app.listen(port,()=>{
+        console.log(`server is running on http://localhost:${port}`)
+    })
