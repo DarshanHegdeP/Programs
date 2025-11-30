@@ -1,3 +1,6 @@
+mongodb://mca031:mca031@172.16.34.33:27017 ->College MongoDB Server
+
+
 db.employees.insertMany([
   { employee_id: 101, name: "Sonia Rao", department: "Engineering", salary: 95000,
     hire_date: new Date("2023-01-15"), performance_score: 4.5, status: "Active" },
