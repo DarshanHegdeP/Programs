@@ -1,0 +1,57 @@
+Step 1️⃣ Insert Catalog Data
+
+db.catalog.insertMany([
+  { item_id: "A001", name: "Classic Leather Backpack",
+    description: "Durable leather backpack for travel and work",
+    tags: ["leather", "backpack", "travel", "work"],
+    price: 120, in_stock: true },
+  
+  { item_id: "A002", name: "Ergonomic Office Chair",
+    description: "Adjustable chair with breathable mesh",
+    tags: ["office", "chair", "comfort"],
+    price: 280, in_stock: false },
+  
+  { item_id: "A003", name: "Durable Cotton T-Shirt",
+    description: "Soft and eco-friendly cotton t-shirt",
+    tags: ["cotton", "tshirt", "eco-friendly"],
+    price: 25, in_stock: true }
+]);
+
+Step 2️⃣ Create a Text Index
+
+db.catalog.createIndex({
+  name: "text",
+  description: "text",
+  tags: "text"
+})
+
+Step 3️⃣ Aggregation Pipeline for Text Search
+
+db.catalog.aggregate([
+  {
+    $match: {
+      $text: { $search: "durable backpack" }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      price: 1,
+      score: { $meta: "textScore" }
+    }
+  },
+  {
+    $sort: {
+      score: -1
+    }
+  }
+])
+
+Expected Output
+
+[
+  { "name": "Classic Leather Backpack", "price": 120, "score": 1.5 },
+  { "name": "Durable Cotton T-Shirt", "price": 25, "score": 0.75 }
+]
+
