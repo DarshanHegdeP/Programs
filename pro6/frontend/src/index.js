@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Display_Inventory } from './inventory';
-import { AddInventory } from './inventory';
+import Inventory from './inventory';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-<Display_Inventory /> 
-<AddInventory />
-
+{/* <Display_Inventory /> 
+<AddInventory /> */}
+<Inventory />
  </React.StrictMode>
 
 );
