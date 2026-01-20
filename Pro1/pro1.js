@@ -49,12 +49,30 @@ app.post("/books",(req,res)=>{
     res.status(201).json(newbook)
 })
 
-app.patch('/books/:id',(req,res,err)=>{
-    // res.send("In the patch method");
-    const book=books.find(b=>b.id===parseInt(req.params.id));
-    if(!book) return res.status(404).send("Book not found")
-        res.status(200).json(book);
-})
+
+
+app.patch("/books/:id", (req, res) => {
+    const book = books.find(b => b.id === parseInt(req.params.id));
+
+    if (!book) {
+        return res.status(404).send("Book not found");
+    }
+
+    if (req.body.title !== undefined) {
+        book.title = req.body.title;
+    }
+    if (req.body.author !== undefined) {
+        book.author = req.body.author;
+    }
+    if (req.body.price !== undefined) {
+        book.price = req.body.price;
+    }
+    if (req.body.quantity !== undefined) {
+        book.quantity = req.body.quantity;
+    }
+
+    res.status(200).json(book);
+});
 
 app.put("/books/:id",(req,res,err)=>{
       const book=books.find(b=>b.id===parseInt(req.params.id));
